@@ -1,0 +1,58 @@
+<html>
+<head></head>
+<body>
+<table border="1px" id="table1">
+
+<tr>
+	<td>09:30</td>
+	<td></td>
+
+</tr>
+
+
+
+</table>
+<script type="text/javascript">
+	function setcountDown()
+	{
+		var table1=document.getElementById("table1");
+		for (var i = 0; i < table1.rows.length; i++) {
+				var HM = table1.rows[i].cells[0].innerHTML.split(":");
+				var tmpDate = new Date();
+				var hour = parseInt(tmpDate.getFullYear());
+				var month = parseInt(tmpDate.getMonth());
+				var day = parseInt(tmpDate.getDate());
+				var endTime = new Date(hour, month, day, HM[0], HM[1], 0);
+				var now = new Date();
+				var leftTime = endTime - now;
+				var days = parseInt(leftTime / 1000 / 60 / 60 / 24, 10); //计算剩余的天数 
+				var hours = parseInt(leftTime / 1000 / 60 / 60 % 24, 10); //计算剩余的小时 
+				var minutes = parseInt(leftTime / 1000 / 60 % 60, 10); //计算剩余的分钟 
+				var seconds = parseInt(leftTime / 1000 % 60, 10); //计算剩余的秒数 
+				days = checkTime(days);
+				hours = checkTime(hours);
+				minutes = checkTime(minutes);
+				seconds = checkTime(seconds);
+				table1.rows[i].cells[1].innerHTML=hours+":"+minutes+":"+seconds;
+				if(leftTime>0)
+				{
+					setInterval("setcountDown()",1000); 
+				}
+        }
+        tableInfo += "\n";
+	}
+	function checkTime(i) { //将0-9的数字前面加上0，例1变为01 
+		if (i < 10) {
+			i = "0" + i;
+		}
+		return i;
+	}
+	setcountDown();
+	
+	
+
+
+</script>
+
+</body>
+</html>
